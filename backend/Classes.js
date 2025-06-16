@@ -31,3 +31,22 @@ export class Maze {
         }
     }
 }
+
+export class Flag {
+    constructor() {
+        this.amount = config.flagAmount;
+        this.url = config.flagURL;
+    }
+
+    generateRandomPosition(availableCells) {
+        let positions = [];
+        const pool = [...availableCells]; // copy so we can modify safely
+
+        for (let i = 0; i < this.amount && pool.length > 0; i++) {
+            const index = Math.floor(Math.random() * pool.length);
+            const cell = pool.splice(index, 1)[0]; // remove so it’s not reused
+            positions.push(cell);
+        }
+        return positions;
+    }
+}

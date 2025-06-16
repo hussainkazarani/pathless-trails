@@ -4,13 +4,13 @@ import config from '../../shared/config.js';
 import { state } from './modules/state.js';
 
 const startBtn = document.getElementById('start-game-timer');
-startBtn.addEventListener('click', () => socket.emit('game:verify'));
 window.addEventListener('load', () => onLoad(startBtn));
 
 export function animate() {
     clearScene();
     applyCamera();
     drawMaze();
+    drawFlags();
     drawLocalPlayer();
     handleLocalPlayerMovement();
     resetCamera();
@@ -29,6 +29,12 @@ function applyCamera() {
 
 function drawMaze() {
     ctx.drawImage(state.buffer, 0, 0);
+}
+
+function drawFlags() {
+    if (state.flagManager.activeFlags) {
+        state.flagManager.draw(ctx);
+    }
 }
 
 function drawLocalPlayer() {
@@ -67,6 +73,7 @@ function handleLocalPlayerMovement() {
         const collectedFlag = state.collisionManager.checkFlagCollision(finalX, finalY, config.playerSize);
         if (collectedFlag) {
             state.player.flagsCollected++;
+            socket.emit('game:request-flags', { count: 1, lastCollected: collectedFlag });
         }
 
         state.player.setPosition(finalX, finalY);

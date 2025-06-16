@@ -1,9 +1,11 @@
 import config from '../../../shared/config.js';
+import { canvas, ctx } from '../canvas/initCanvas.js';
 import { animate } from '../main.js';
 import { state } from './state.js';
+import { sendPlayerUpdate } from './utilities.js';
 import { Maze } from '../game/Maze.js';
+import { FlagManager } from '../game/Flag.js';
 import { Player } from '../game/Player.js';
-import { CollisionManager } from '../game/CollisionManager.js';
 import { CameraManager } from '../game/CameraManager.js';
 
 export function setupCanvas(roomData) {
@@ -12,6 +14,9 @@ export function setupCanvas(roomData) {
     state.maze = new Maze();
     state.maze.loadData(roomData.maze);
 
+    state.flagManager = new FlagManager();
+    state.flagManager.activeFlags = roomData.currentflagPositions;
+
     state.allPlayers = roomData.players;
     state.player = new Player(roomData.players[username]);
 
@@ -19,9 +24,9 @@ export function setupCanvas(roomData) {
     state.bufferCtx = state.buffer.getContext('2d');
     state.maze.drawCells(state.bufferCtx);
 
-    state.collisionManager = new CollisionManager(state.maze, state.flagManager);
     state.camera = new CameraManager(canvas);
 
+    sendPlayerUpdate();
     animate();
 }
 

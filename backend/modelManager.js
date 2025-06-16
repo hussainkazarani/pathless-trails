@@ -11,6 +11,11 @@ export function isUsernameAvailable(username) {
 }
 
 // ========== ROOM ON-LOAD ==========
+// Add a new player to the model
+export function registerPlayer(name) {
+    if (model.users.includes(name)) return; //MAYBE RESTART?
+    model.addUser(name);
+}
 
 // ========== ROOM ON-CLICK ==========
 // Check if a room name is available
@@ -28,4 +33,62 @@ export function createRoomWithMaze(username, room) {
     const availableCells = getAvailableCellsFromMaze(maze.cellsMatrix);
     const roomFlagPositions = flag.generateRandomPosition(availableCells);
     model.addRoom(room, maze.cellsMatrix, username, roomFlagPositions);
+}
+
+export function placePlayerInMaze(username, room) {
+    const maze = model.rooms[room]?.maze;
+    if (!maze) return;
+
+    const availableCells = getAvailableCellsFromMaze(model.rooms[room].maze);
+    const playerPosition = availableCells[Math.floor(Math.random() * availableCells.length)];
+
+    const cellSize = config.cellSize;
+    const playerSize = config.playerSize;
+
+    const takenColors = Object.values(model.rooms[room].players).map((p) => p.color);
+    const availableColors = config.colors.filter((color) => !takenColors.includes(color));
+    const randomColor = availableColors[Math.floor(Math.random() * availableColors.length)]; // picks a random color
+
+    const center = (cellSize - playerSize) / 2;
+    const x = playerPosition.col * cellSize + center; // col → x
+    const y = playerPosition.row * cellSize + center; // row → y
+
+    model.rooms[room].addPlayer(username, x, y, randomColor);
+}
+
+// Collects all walkable cells from the maze
+function getAvailableCellsFromMaze(cellsMatrix) {
+    const available = [];
+
+    for (let row = 0; row < cellsMatrix.length; row++) {
+        for (let col = 0; col < cellsMatrix[row].length; col++) {
+            const cell = cellsMatrix[row][col];
+            if (cell.walkable) {
+                available.push({ row, col });
+            }
+        }
+    }
+
+    return available;
+}
+// ========== GAME ==========
+
+export function addActiveFlag(count, room) {
+    const toActivate = [];
+    for (let i = 0; i < count && model.rooms[room].allflagPositions.length > 0; i++) {
+        const index = Math.floor(Math.random() * model.rooms[room].allflagPositions.length);
+        const flag = model.rooms[room].allflagPositions.splice(index, 1)[0];
+        toActivate.push(flag);
+    }
+
+    model.rooms[room].currentflagPositions.push(...toActivate);
+    return toActivate;
+}
+
+export function removeActiveFlag(room, row, col) {
+    const index = model.rooms[room].currentflagPositions.findIndex((f) => f.row === row && f.col === col);
+
+    if (index !== -1) {
+        return model.rooms[room].currentflagPositions.splice(index, 1)[0]; // return removed flag
+    }
 }

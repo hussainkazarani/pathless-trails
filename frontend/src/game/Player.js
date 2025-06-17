@@ -56,6 +56,14 @@ export class Player {
         };
     }
 
+    addCollectedFlag(flag) {
+        this.collectedFlags.push(flag);
+    }
+
+    getLastCollectedFlag() {
+        return this.collectedFlags.length > 0 ? this.collectedFlags[this.collectedFlags.length - 1] : null;
+    }
+
     // Only set position if allowed
     setPosition(x, y) {
         this.x = x;

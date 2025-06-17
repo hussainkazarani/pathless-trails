@@ -1,3 +1,4 @@
+import { socket } from '../../socket.js';
 import { state } from './state.js';
 
 export function onLoad(startBtn) {
@@ -5,7 +6,13 @@ export function onLoad(startBtn) {
     let room = localStorage.getItem('room');
 
     //join room with socket and check creator status
+    socket.emit('game:join', username, room);
     console.log(`(F) ${username} has joined room: ${room}`);
+}
+
+// get new flags to spawn
+export function spawnFlags(count, lastCollected = null) {
+    socket.emit('game:request-flags', { count, lastCollected });
 }
 
 export function redirectToHomeWithLocalStorage() {

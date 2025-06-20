@@ -1,5 +1,3 @@
-import config from '../shared/config.js';
-
 /*
 Model: {
   users: ["alice", "bob"],
@@ -20,6 +18,8 @@ Model: {
   }
 }
 */
+
+import config from '../shared/config.js';
 
 class Model {
     constructor() {

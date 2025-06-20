@@ -72,6 +72,10 @@ function getAvailableCellsFromMaze(cellsMatrix) {
     return available;
 }
 // ========== GAME ==========
+// Check if a player is the creator of a room
+export function isRoomCreator(username, room) {
+    return model.rooms[room]?.creator === username;
+}
 
 export function addActiveFlag(count, room) {
     const toActivate = [];
@@ -91,4 +95,44 @@ export function removeActiveFlag(room, row, col) {
     if (index !== -1) {
         return model.rooms[room].currentflagPositions.splice(index, 1)[0]; // return removed flag
     }
+}
+
+// Remove only the Room
+export function removeGame(room) {
+    if (!model.rooms[room]) {
+        console.log('Room already removed:', room);
+        return;
+    }
+    delete model.rooms[room];
+}
+
+// ========== REMOVALS ==========
+// Remove a player completely from the backend
+export function removePlayer(username, io) {
+    // 1️⃣ Remove rooms created by this player
+    for (const roomName in model.rooms) {
+        const room = model.rooms[roomName];
+        if (room.creator === username) {
+            io.to(roomName).emit('error:room-closed');
+            const roomSockets = io.sockets.adapter.rooms.get(roomName);
+            if (roomSockets) {
+                roomSockets.forEach((socketId) => {
+                    const s = io.sockets.sockets.get(socketId);
+                    s.leave(roomName);
+                });
+            }
+            delete model.rooms[roomName];
+        }
+    }
+
+    // 2️⃣ Remove player from users list
+    const index = model.users.indexOf(username);
+    if (index > -1) {
+        model.users.splice(index, 1);
+    }
+
+    console.log(model.users);
+    // 3️⃣ Broadcast updated online users to everyone
+    io.emit('player:set-online-status', model.users);
+    io.emit('room:set-list', model.rooms);
 }

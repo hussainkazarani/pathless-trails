@@ -11,6 +11,7 @@ import { CameraManager } from '../game/CameraManager.js';
 
 export function setupCanvas(roomData) {
     let username = localStorage.getItem('playerToken');
+    state.timerDuration = roomData.timerDuration;
 
     state.maze = new Maze();
     state.maze.loadData(roomData.maze);

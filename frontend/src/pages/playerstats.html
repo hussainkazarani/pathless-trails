@@ -2,8 +2,12 @@
     <meta charset="utf8" />
     <head>
         <title>Pathless Trails</title>
+        <link rel="stylesheet" href="/frontend/src/pages/playerstats.css" />
+        <link rel="stylesheet" href="/frontend/src/reset.css" />
+        <link rel="icon" type="image/png" href="/assets/star.png" />
     </head>
     <body class="preload">
+        <div class="backbtn"><img src="/assets/other/back2.svg" alt="Back" /></div>
         <div class="page">
             <h1 class="header1">Profile Stats</h1>
             <div class="p1">
@@ -29,6 +33,7 @@
         </div>
         <!-- <div id="tempdiv"></div> -->
         <script type="module" src="/frontend/src/transitions.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
         <script type="module" src="/frontend/src/pages/playerstats.js"></script>
     </body>
 </html>

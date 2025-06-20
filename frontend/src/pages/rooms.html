@@ -1,6 +1,9 @@
 <html>
     <head>
         <title>Pathless Trails</title>
+        <link rel="stylesheet" href="/frontend/src/pages/rooms.css" />
+        <link rel="stylesheet" href="/frontend/src/reset.css" />
+        <link rel="icon" type="image/png" href="/assets/star.png" />
     </head>
     <body class="preload">
         <div class="page">
@@ -44,7 +47,8 @@
             </div>
         </div>
         <script type="module" src="/frontend/src/transitions.js"></script>
-
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="module" src="/frontend/socket.js"></script>
         <script type="module" src="/frontend/src/pages/rooms.js"></script>
     </body>
 </html>

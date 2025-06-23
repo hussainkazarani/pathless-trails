@@ -1,4 +1,5 @@
 import * as ModelManager from '../modelManager.js';
+import * as DB from '../db.js';
 
 export function handleRoomOnLoadEvents(socket, io) {
     // add player in the Model.users
@@ -6,6 +7,11 @@ export function handleRoomOnLoadEvents(socket, io) {
         socket.data.username = username;
         ModelManager.registerPlayer(username);
         console.log(`(B) Set backend variable Username: ${username}`);
+    });
+
+    // adding player to db
+    socket.on('player:add-to-db', async () => {
+        await DB.insertPlayerIfNotExists(socket.data.username);
     });
 
     // send all current games to particular player

@@ -1,3 +1,4 @@
+import * as DB from '../db.js';
 import * as ModelManager from '../modelManager.js';
 import { parseRequestBody } from '../utils.js';
 
@@ -5,12 +6,14 @@ export function handleOtherEvents(socket) {
     // Leaderboards
     socket.on('leaderboard:get', async () => {
         console.log(`(B) Sending leaderboards`);
+        const leaderboards = await DB.fetchLeaderboards();
         socket.emit('leaderboard:data', leaderboards);
     });
 
     // Player statistics / history
     socket.on('player-stats:get', async (username) => {
         console.log(`(B) Sending player statistics`);
+        const history = await DB.fetchPlayerHistory(username);
         socket.emit('player-stats:data', history);
     });
 

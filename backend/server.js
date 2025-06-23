@@ -1,6 +1,7 @@
 import http from 'http';
 import path from 'path';
 import dotenv from 'dotenv';
+import * as DB from './db.js';
 import { Server } from 'socket.io';
 import { serveStaticFile } from './utils.js';
 import { handleHomeEvents } from './socketHandlers/home.js';
@@ -43,4 +44,6 @@ io.on('connection', (socket) => {
     handleOtherEvents(socket, io);
 });
 
-server.listen(PORT, '0.0.0.0', async () => {});
+server.listen(PORT, '0.0.0.0', async () => {
+    await DB.verifyDbConnection();
+});

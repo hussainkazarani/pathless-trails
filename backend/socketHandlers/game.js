@@ -1,3 +1,5 @@
+import config from '../../shared/config.js';
+import { saveCompletedRoomResults } from '../db.js';
 import * as ModelManager from '../modelManager.js';
 
 export function handleGameEvents(socket, io) {
@@ -102,6 +104,7 @@ export function handleGameEvents(socket, io) {
         const playerResult = results.find((result) => result.username === username);
 
         console.log(`(B) 🗑️ Deleted game removed user: ${username} in room: ${room}`);
+        await saveCompletedRoomResults(playerResult, room, config.duration);
         ModelManager.removeGame(room);
         io.emit('room:set-list', ModelManager.model.rooms);
         socket.leave(room); // keeps connection alive unlike socket.disconnect()

@@ -8,6 +8,7 @@ import { FlagManager } from '../game/Flag.js';
 import { Player } from '../game/Player.js';
 import { CollisionManager } from '../game/CollisionManager.js';
 import { CameraManager } from '../game/CameraManager.js';
+import { HUD } from '../game/HUD.js';
 
 export function setupCanvas(roomData) {
     let username = localStorage.getItem('playerToken');
@@ -28,6 +29,7 @@ export function setupCanvas(roomData) {
 
     state.collisionManager = new CollisionManager(state.maze, state.flagManager);
     state.camera = new CameraManager(canvas);
+    state.hud = new HUD();
 
     sendPlayerUpdate();
     animate();

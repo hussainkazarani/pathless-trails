@@ -1,3 +1,10 @@
+window.addEventListener('DOMContentLoaded', () => {
+    // Trigger fade-in
+    requestAnimationFrame(() => {
+        document.body.classList.remove('preload');
+    });
+});
+
 // Helper for button/JS-triggered navigation
 window.navigateWithFade = function (url) {
     document.body.classList.add('fade-out');

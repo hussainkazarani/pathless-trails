@@ -2,6 +2,9 @@
     <head>
         <meta charset="utf8" />
         <title>Pathless Trails</title>
+        <link rel="stylesheet" href="/frontend/src/main.css" />
+        <link rel="stylesheet" href="/frontend/src/reset.css" />
+        <link rel="icon" type="image/png" href="/assets/star.png" />
     </head>
     <body>
         <canvas id="canvas"></canvas>
@@ -17,7 +20,8 @@
             </div>
         </div>
         <script type="module" src="/frontend/src/transitions.js"></script>
-
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="module" src="/frontend/socket.js"></script>
         <script type="module" src="/frontend/src/main.js"></script>
     </body>
 </html>

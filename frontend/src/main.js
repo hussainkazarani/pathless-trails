@@ -1,19 +1,23 @@
+import { socket } from '../socket.js';
 import { ctx, canvas } from './canvas/initCanvas.js';
 import { onLoad, sendPlayerUpdate } from './modules/utilities.js';
 import config from '../../shared/config.js';
 import { state } from './modules/state.js';
 
 const startBtn = document.getElementById('start-game-timer');
+startBtn.addEventListener('click', () => socket.emit('game:verify'));
 window.addEventListener('load', () => onLoad(startBtn));
 
 export function animate() {
     clearScene();
     applyCamera();
     drawMaze();
+    drawOtherPlayers();
     drawFlags();
     drawLocalPlayer();
     handleLocalPlayerMovement();
     resetCamera();
+    drawHUD();
     state.animationID = requestAnimationFrame(animate);
 }
 
@@ -31,6 +35,20 @@ function drawMaze() {
     ctx.drawImage(state.buffer, 0, 0);
 }
 
+function drawOtherPlayers() {
+    Object.keys(state.allPlayers).forEach((player) => {
+        if (player === localStorage.getItem('playerToken')) return;
+        const playerData = state.allPlayers[player];
+
+        ctx.fillStyle = playerData.color;
+        ctx.fillRect(playerData.x, playerData.y, config.playerSize, config.playerSize);
+        ctx.fillStyle = 'pink';
+        ctx.font = '12px Outfit';
+        ctx.textAlign = 'center';
+        ctx.fillText(player, playerData.x + config.playerSize / 2, playerData.y - 5);
+    });
+}
+
 function drawFlags() {
     if (state.flagManager.activeFlags) {
         state.flagManager.draw(ctx);
@@ -43,6 +61,11 @@ function drawLocalPlayer() {
 
 function resetCamera() {
     state.camera.resetTransform(ctx);
+}
+
+function drawHUD() {
+    state.hud.drawTimerUI(ctx);
+    state.hud.drawPlayerFlags(ctx, state.player.flagsCollected);
 }
 
 function handleLocalPlayerMovement() {

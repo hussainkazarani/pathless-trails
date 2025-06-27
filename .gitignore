@@ -1,1 +1,14 @@
-backend/node_modules/
+# OS/system junk
+.DS_Store
+Thumbs.db
+
+# Node.js
+server/node_modules
+server/npm-debug.log
+server/yarn.lock
+server/pnpm-lock.yaml
+
+# Other files
+setup.txt
+dummy.sql
+# .env

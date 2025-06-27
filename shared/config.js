@@ -9,7 +9,7 @@ const config = {
     spawnFlags: 10,
     colors: ['#FF5733', '#3357FF', '#F1C40F', '#9B59B6', '#E67E22'],
     flagAmount: 100,
-    flagURL: '/assets/images/raised_flag.png',
+    flagURL: '/client/public/images/flag-animate.png',
 };
 
 export default config;

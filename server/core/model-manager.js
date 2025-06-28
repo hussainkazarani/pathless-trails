@@ -28,7 +28,7 @@ export function createRoomWithMaze(username, room) {
     const maze = new Maze(config.cols, config.rows);
     maze.initializeCells();
     const generator = new MazeGenerator(maze);
-    generator.generateDFS();
+    generator.generateRandomMaze();
     const flag = new Flag();
     const availableCells = getAvailableCellsFromMaze(maze.cellsMatrix);
     const roomFlagPositions = flag.generateRandomPosition(availableCells);

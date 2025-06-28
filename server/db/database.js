@@ -1,5 +1,8 @@
 import pkg from 'pg';
 import config from '../../shared/config.js';
+import dotenv from 'dotenv';
+dotenv.config({ path: '../.env' });
+
 const { Pool } = pkg;
 
 // host: 'localhost', 'custom-postgres', 'host.docker.internal'
@@ -8,7 +11,7 @@ export const pool = new Pool({
     host: process.env.POSTGRES_HOST,
     database: process.env.POSTGRES_DB,
     password: process.env.POSTGRES_PASSWORD,
-    port: process.env.POSTGRES_PORT,
+    port: Number(process.env.POSTGRES_PORT),
 });
 
 // helper for automatic client release

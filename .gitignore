@@ -11,4 +11,4 @@ server/pnpm-lock.yaml
 # Other files
 setup.txt
 dummy.sql
-# .env
+.env

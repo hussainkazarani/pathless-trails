@@ -22,7 +22,7 @@ Live Demo: [_click me!_](https://pathless.hussainkazarani.site/)
 <div align="center">
 <!-- Top: Gameplay GIF -->
 
-https://github.com/user-attachments/assets/896191b0-6aa7-4319-bb1e-4183430d96eb
+https://github.com/user-attachments/assets/e5ff90a6-b1f1-4aba-97d5-e9ed18615c8f
 
 <!-- <figcaption><em>gameplay loop</em></figcaption> -->
 

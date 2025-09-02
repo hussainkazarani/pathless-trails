@@ -21,25 +21,31 @@ Live Demo: [_click me!_](https://pathless.hussainkazarani.site/)
 
 <div align="center">
 <!-- Top: Gameplay GIF -->
-<figure>
-<img src="./readme-assets/gameplayy.jpg"
-     alt="Gameplay Loop Gif"
-     style="width:100%; max-height:300px; object-fit:cover; object-position:10% 10%;" />
 
-  <figcaption><em>gameplay loop</em></figcaption>
-</figure>
+https://github.com/user-attachments/assets/896191b0-6aa7-4319-bb1e-4183430d96eb
+
+<!-- <figcaption><em>gameplay loop</em></figcaption> -->
+
+ <p>&nbsp;</p>
 
 <!-- Second: Screenshot -->
 <figure>
-  <img src="./readme-assets/screenshot.jpg" alt="Home Screen Image" />
-  <figcaption><em>home screen</em></figcaption>
+  <img src="./readme-assets/leaderboards-bordered.webp" alt="Leaderboards Screen Image"/>
+  <figcaption><em>leaderboards page</em></figcaption>
 </figure>
 
+  <p>&nbsp;</p>
+
 <!-- Third: Screenshot -->
-<figure>
-  <img src="./readme-assets/screenshot.jpg" alt="Profile Page Image" />
+<figure style="border: 1px solid white;">
+<img src="./readme-assets/profile-stats-bordered.webp"
+     alt="Profile Screen Image"
+ />
   <figcaption><em>profile page</em></figcaption>
 </figure>
+
+  <p>&nbsp;</p>
+
 </div>
 
 ## ⚙️ Local Installation
